@@ -11,9 +11,6 @@
 	path = tools/micropython
 	url = https://github.com/mfp20/micropython.git
 	branch = esp32-template-plus
-[submodule "components/arduino/sources"]
-	path = components/arduino/sources
-	url = https://github.com/mfp20/arduino-esp32.git
 [submodule "components/curl/sources"]
 	path = components/curl/sources
 	url = https://github.com/mfp20/curl.git
