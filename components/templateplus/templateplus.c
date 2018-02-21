@@ -41,7 +41,7 @@ void wInit()
 void initTemplateplus(f_ptr_t ar) {
 
 #if CONFIG_ENABLE_WIFI
-	winit();
+	wInit();
 #endif
 
 #if CONFIG_ENABLE_OTA
@@ -49,11 +49,11 @@ void initTemplateplus(f_ptr_t ar) {
 #endif
 
 #ifdef CONFIG_ENABLE_ARDUINO
-    //arduino_entry(ar);
+    arduino_entry(ar);
 #endif
 
-#if CONFIG_ENABLE_MICROPYTHON
-    //upython_entry();
+#if CONFIG_ENABLE_UPY
+    upython_entry();
 #endif
 
 #if CONFIG_ENABLE_WIFI

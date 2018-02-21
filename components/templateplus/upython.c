@@ -3,5 +3,5 @@
 #include "include/upython.h"
 
 TaskHandle_t upython_entry(void) {
-	return micropython_task(UPY_RUNNING_CORE);
+	return micropython_task(ENABLE_UPY_CORE);
 }

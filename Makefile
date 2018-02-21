@@ -56,7 +56,7 @@ ifeq (,$(wildcard tools/$(SDKUPY)))
 	@cd tools/$(SDKUPY);git checkout 2c95a77cf93781f296883d5dbafcdc18e4389656;git submodule update --init --recursive
 endif
 	@cd tools/micropython;make -C mpy-cross;cd ports/esp32;PATH=$(PATH):$(CWD)/tools/xtensa-esp32-elf/bin ESPIDF=$(CWD)/tools/$(SDKUPY) make -j8 libs
-	cp $(CWD)/tools/micropython/ports/esp32/build/lib*.a $(CWD)/components/upython/
+	cp $(CWD)/tools/micropython/ports/esp32/build/lib*.a $(CWD)/components/templateplus/
 #	@cp $(CWD)/src/micropython/sources/ports/esp32/build/genhdr/*.h $(CWD)/components/upython/include
 	@echo "--------------------------"
 	@echo "uPython lib installed."

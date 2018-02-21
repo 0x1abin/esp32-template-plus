@@ -29,3 +29,6 @@
 [submodule "components/ota-server/sources"]
 	path = components/ota-server/sources
 	url = https://github.com/mfp20/esp32-ota-server.git
+[submodule "components/templateplus/arduino-esp32"]
+	path = components/templateplus/arduino-esp32
+	url = https://github.com/mfp20/arduino-esp32.git
