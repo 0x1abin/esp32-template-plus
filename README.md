@@ -1,5 +1,7 @@
 # ESP32 Template Plus #
 
+**Currently it's just a STUB: it builds the default image with all the libs from the components folder (micropython included, see tools/micropython/ports/esp32/build/libapp.a after 'make install') but doesn't run any task yet.**
+
 This repository contains an **esp-idf template on steroids**: in a few minutes you can have a fully functional build to flash your ESP32 with, and to jumpstart your own project.
 I made it to test my tiny [M5Stack](http://www.m5stack.com/) and it works good for me. I hope you enjoy it too.
 
@@ -28,8 +30,6 @@ In other words: defaults for M5Stack (C tasks for hw management, micropython for
 ## 1. Features & Status ##
 
 The current code is a rewriting of my [old esp-template-plus](https://github.com/mfp20/esp32-template-plus-OLD) (ie: rebased on top of [esp-idf-template](https://github.com/espressif/esp-idf-template) instead of [MicroPython for ESP32 with psRAM support](https://github.com/loboris/MicroPython_ESP32_psRAM_LoBo)), in order to make **explicit and trackable** all the changes from Espressif/Micropython/Etc repos to the actual esp-template-plus project.
-
-**Currently builds the default image with all the libs from the components folder (micropython included, see tools/micropython/ports/esp32/build/libapp.a after 'make install') but doesn't run any task yet.**
 
 Initially I reworked/cleaned [Loboris' Micropython awesome project](https://github.com/loboris/MicroPython_ESP32_psRAM_LoBo) that lead the way for Micropython on ESP32, but then I discovered that his repo had no history back to the original projects, and its design is pretty convoluted. 
 Moreover Loboris looks particularly focused on the Microphyton port, finalizing that codebase for one task only (Micropython), making the whole project unsuitable for generic templating. So, after spending a couple of days fiddling with his messy stuff, I gave up and started from the scratch, importing his component.mk files and his existing component patches.
