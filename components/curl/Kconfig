@@ -1,0 +1,5 @@
+config COMPONENT_CURL
+	bool "Curl"
+	default 0
+    help
+		cURL:command line tool and library for transferring data with URLs.

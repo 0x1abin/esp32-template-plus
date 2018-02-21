@@ -1,0 +1,53 @@
+menuconfig COMPONENT_OTA
+    bool "OTA"
+    default 0
+    help
+		A component for ESP-IDF that adds OTA capability for your project easily.
+
+config COMPONENT_OTA_MODE
+    int
+    default 0 if COMPONENT_OTA_PUSH
+    default 1 if COMPONENT_OTA_PULL
+    depends on COMPONENT_OTA
+	choice
+    	prompt "Select OTA mode"
+    	depends on COMPONENT_OTA
+    	config COMPONENT_OTA_PUSH
+    	    bool "Push"
+    	    help
+    	        If selected a server will wait for updates to be pushed in.
+    	config COMPONENT_OTA_PULL
+    	    bool "Pull"
+    	    help
+    	        If selected the device will pull updates on command.
+	endchoice
+
+config COMPONENT_OTA_CORE
+    int
+    default 0 if COMPONENT_OTA_CORE_0
+    default 1 if COMPONENT_OTA_CORE_1
+    depends on COMPONENT_OTA
+    depends on COMPONENT_OTA_PUSH
+	config COMPONENT_AUTOSTART_OTA
+    	bool "Autostart OTA server on boot"
+    	default 0
+    	depends on COMPONENT_OTA
+    	depends on COMPONENT_OTA_PUSH
+    	help
+    	    By default OTA server stays suspended waiting for explicit resume.
+    	    Enabling this option will resume the OTA server task on boot.
+
+	choice
+    	prompt "Select core for OTA"
+    	depends on COMPONENT_OTA
+    	depends on COMPONENT_OTA_PUSH
+    	config COMPONENT_OTA_CORE_0
+    	    bool "Core 0"
+       		help
+            	If selected OTA will be executed by PRO Core.
+    	config COMPONENT_OTA_CORE_1
+        	bool "Core 1"
+        	select MEMMAP_SMP
+        	help
+            	If selected OTA will be executed by APP Core.
+	endchoice

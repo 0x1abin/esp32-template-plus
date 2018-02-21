@@ -1,0 +1,23 @@
+menu "OTA"
+
+config MICROPY_USE_OTA
+        bool "Use OTA partition layout"
+        default n
+        depends on ENABLE_OTA
+         depends on OTA_PULL
+         depends on ENABLE_MICROPYTHON
+        help
+            Use OTA partition layout and include OTA module into build
+config GPIO_INPUT_FORCE_FACTORY
+        bool "Use GPIO2 to force boot from Factory partition"
+        depends on ENABLE_OTA
+         depends on OTA_PULL
+         depends on ENABLE_MICROPYTHON
+        depends on MICROPY_USE_OTA
+        default n
+        help
+            If OTA layout is enabled and OTA update has been executed
+            the system will boot from one of the OTA partition
+            To force boot from Factory partition GPIO2 must be high for 3 seconds during boot
+
+endmenu

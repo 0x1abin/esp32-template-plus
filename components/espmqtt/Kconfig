@@ -1,0 +1,5 @@
+config COMPONENT_MQTT
+	bool "MQTT"
+	default 0
+    help
+		ESP32 mqtt component.

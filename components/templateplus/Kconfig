@@ -1,0 +1,177 @@
+menu "Template Plus"
+
+choice
+    prompt "MCU"
+    config D0WDQ6
+        bool "Dual core ESP32"
+        help
+            ESP32-D0WDQ6.
+    config S0WD
+        bool "Single core ESP32"
+        help
+            ESP32-S0WD.
+endchoice
+config MCU_TYPE
+    int
+    default 0 if D0WDQ6
+    default 1 if S0WD
+config MICROPY_HW_MCU_NAME
+    string
+    default "ESP32-D0WDQ6" if D0WDQ6
+    default "ESP32-S0WD" if S0WD
+
+choice
+    prompt "Board"
+    depends on D0WDQ6
+    config ESP32D
+        depends on D0WDQ6
+        bool "Generic dual core ESP32"
+        help
+            It should work on any ESP32 board, your mileage may vary.
+    config M5STACK
+        depends on D0WDQ6
+        bool "M5Stack Core Gen1"
+        help
+            M5Stack Core Gen1 board.
+endchoice
+choice
+    prompt "Board"
+    depends on S0WD
+    config ESP32S
+        depends on S0WD
+        bool "Generic single core ESP32"
+        help
+            It should work on any ESP32 board, your mileage may vary.
+endchoice
+config BOARD_TYPE
+    int
+    default 0 if ESP32D
+    default 1 if M5STACK
+    default 2 if ESP32S
+config MICROPY_HW_BOARD_NAME
+    string
+    default "Generic Dual Core ESP32" if ESP32D
+    default "M5Stack Core Gen1" if M5STACK
+    default "Generic Single Core ESP32" if ESP32S
+
+menu "SD Card configuration"
+         depends on ENABLE_MICROPYTHON
+        config SDCARD_MODE
+            int
+            default 1 if SDCARD_MODE1
+            default 2 if SDCARD_MODE2
+            default 3 if SDCARD_MODE3
+        
+            choice
+                prompt "SD Card mode"
+                default SDCARD_MODE3
+                help
+                    Select SD Card operating mode
+            
+                config SDCARD_MODE1
+                    bool "SPI Mode"
+                    depends on !MEMMAP_SPIRAM_ENABLE 
+                config SDCARD_MODE2
+                    bool "1-line SD Mode" 
+                config SDCARD_MODE3
+                    bool "4-line SD Mode" 
+            endchoice
+
+        config SDCARD_CLK
+            int "CLK pin"
+            depends on SDCARD_MODE1
+            range 1 32
+            default 14
+            help
+            Pin used as SPI CLK
+
+        config SDCARD_MOSI
+            int "MOSI pin"
+            depends on SDCARD_MODE1
+            range 1 32
+            default 15
+            help
+            Pin used as SPI MOSI
+
+        config SDCARD_MISO
+            int "MISO pin"
+            depends on SDCARD_MODE1
+            range 1 32
+            default 2
+            help
+            Pin used as SPI MISO
+
+        config SDCARD_CS
+            int "CS pin"
+            depends on SDCARD_MODE1
+            range 1 32
+            default 13
+            help
+            Pin used as SPI CS
+endmenu
+        
+menu "File systems"
+         depends on ENABLE_MICROPYTHON
+        config MICROPY_FATFS_MAX_OPEN_FILES
+            int "Maximum number of opened files"
+            range 4 24
+            default 6
+            help
+            Maximum number of opened files
+
+        config MICROPY_USE_SPIFFS
+            bool "Use SPIFFS"
+            default y
+            help
+            Use spiffs on spi Flash instead of FatFS
+
+        config MICROPY_SDMMC_SHOW_INFO
+            bool "Show SDCard/InternalFS info"
+            default y
+            help
+            Show info after initializing SD card or internal FS
+endmenu
+
+config MICROPY_TIMEZONE
+    string "Time zone"
+    default "GMT0BST"
+    help
+        Set the default time zone string used when updating the time from NTP server
+        You can use 'components/micropython/docs/zones.csv'
+        file to find the time zone string.
+        Use the second entry for your Region/city as the value set here. Example:
+        For Zagreb, the zones.csv file contains :"Europe/Zagreb","CET-1CEST,M3.5.0,M10.5.0/3".
+        You should put "CET-1CEST,M3.5.0,M10.5.0/3" or "CET-1CEST" as Time zone.
+
+menu "WiFi"
+
+config ENABLE_WIFI
+    bool "WiFi"
+    select LWIP_SO_RCVBUF
+    select ETHERNET
+    select WIFI_ENABLED
+    select ESP32_PHY_CALIBRATION_AND_DATA_STORAGE
+    select MEMMAP_SMP
+    default "n"
+config WIFI_SSID
+    string "WiFi ssid"
+    default ""
+    depends on ENABLE_WIFI
+    help
+        The SSID it will connect on boot.
+config WIFI_PASSWORD
+    string "WiFi password"
+    default ""
+    depends on ENABLE_WIFI
+    help
+        The SSID's password to connect.
+config WIFI_AUTOCONNECT
+    bool "Connect on boot"
+    depends on ENABLE_WIFI
+    default "n"
+    help
+        If enabled it will connect on boot to the specified network.
+
+endmenu
+
+endmenu

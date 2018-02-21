@@ -1,0 +1,5 @@
+config COMPONENT_LIBSSH2
+	bool "LibSSH2"
+	default 0
+    help
+		the SSH library.

@@ -1,0 +1,6 @@
+config COMPONENT_ZLIB
+	bool "ZLIB"
+	default 0
+    help
+		A Massively Spiffy Yet Delicately Unobtrusive Compression Library 
+		(Also Free, Not to Mention Unencumbered by Patents).

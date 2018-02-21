@@ -1,0 +1,14 @@
+menu "uPython"
+
+config COMPONENT_UPY
+	bool "Enable Micropython"
+	default 0
+    help
+		A lean and efficient Python implementation for microcontrollers and constrained systems.
+
+config COMPONENT_UPY_REPL
+	bool "Enable Micropython REPL"
+    help
+		Micropython Read-Evaluate-Print Loop on console.
+
+endmenu
